@@ -1,0 +1,18 @@
+C:\Users\Alec\documents\visual studio 2010\Projects\advancedSearching\advancedSearching\bin\Release\advancedSearching.exe
+C:\Users\Alec\documents\visual studio 2010\Projects\advancedSearching\advancedSearching\bin\Release\advancedSearching.pdb
+C:\Users\Alec\documents\visual studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\Alec\documents\visual studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\advancedSearching.Form1.resources
+C:\Users\Alec\documents\visual studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\advancedSearching.Properties.Resources.resources
+C:\Users\Alec\documents\visual studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Users\Alec\documents\visual studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Users\Alec\documents\visual studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\advancedSearching.exe
+C:\Users\Alec\documents\visual studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\advancedSearching.pdb
+H:\BACKUPS\8-30-2010\My Documents\Visual Studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\advancedSearching.exe
+H:\BACKUPS\8-30-2010\My Documents\Visual Studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\advancedSearching.pdb
+H:\BACKUPS\8-30-2010\My Documents\Visual Studio 2010\Projects\advancedSearching\advancedSearching\bin\Release\advancedSearching.exe
+H:\BACKUPS\8-30-2010\My Documents\Visual Studio 2010\Projects\advancedSearching\advancedSearching\bin\Release\advancedSearching.pdb
+H:\BACKUPS\8-30-2010\My Documents\Visual Studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\ResolveAssemblyReference.cache
+H:\BACKUPS\8-30-2010\My Documents\Visual Studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\advancedSearching.Form1.resources
+H:\BACKUPS\8-30-2010\My Documents\Visual Studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\advancedSearching.Properties.Resources.resources
+H:\BACKUPS\8-30-2010\My Documents\Visual Studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\GenerateResource.read.1.tlog
+H:\BACKUPS\8-30-2010\My Documents\Visual Studio 2010\Projects\advancedSearching\advancedSearching\obj\x86\Release\GenerateResource.write.1.tlog
