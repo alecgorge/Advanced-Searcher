@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Security.Permissions;
+using System.Diagnostics;
 
 namespace advancedSearching {
 	class SearchBot {
@@ -16,46 +17,31 @@ namespace advancedSearching {
 		public bool caseSensitive;
 		public bool searchHaystack;
 		public Regex fileSearch;
-		ListBox output;
+		DataGridView output;
 		Label current;
+        Form1 inst;
 
-		public SearchBot(string needle, string haystack, bool caseSensitive, bool regex, bool searchHaystack, List<string> fileSearch, ListBox results, Label current) {
+        public SearchBot(Form1 inst, string needle, string haystack, bool caseSensitive, bool regex, bool searchHaystack, IEnumerable<string> fileSearch, DataGridView results, Label current) {
 			this.needle = needle;
 			this.haystack = haystack;
 			this.regex = regex;
 			this.searchHaystack = searchHaystack;
 			this.output = results;
 			this.caseSensitive = caseSensitive;
+            this.inst = inst;
 			string tmp = "";
 			foreach (string f in fileSearch) {
 				tmp += f.Replace(".", "[.]").Replace("*", ".*").Replace("?", ".") + "|";
 			}
 			this.fileSearch = new Regex(tmp.TrimEnd('|'));
 
-			output.Items.Clear();
+            output.Rows.Clear();
 			this.current = current;
 		}
 
 		private bool FitsMask(string sFileName, string sFileMask) {
 			Regex mask = new Regex(sFileMask.Replace(".", "[.]").Replace("*", ".*").Replace("?", "."));
 			return mask.IsMatch(sFileName);
-		}
-
-		delegate void SetControlValueCallback(Control oControl, string propName, object propValue);
-		private void SetControlPropertyValue(Control oControl, string propName, object propValue) {
-			if (oControl.InvokeRequired) {
-				SetControlValueCallback d = new SetControlValueCallback(SetControlPropertyValue);
-				oControl.Invoke(d, new object[] { oControl, propName, propValue });
-			}
-			else {
-				Type t = oControl.GetType();
-				PropertyInfo[] props = t.GetProperties();
-				foreach (PropertyInfo p in props) {
-					if (p.Name.ToUpper() == propName.ToUpper()) {
-						p.SetValue(oControl, propValue, null);
-					}
-				}
-			}
 		}
 
 
@@ -67,7 +53,7 @@ namespace advancedSearching {
 					IEnumerable<string> files = Directory.EnumerateFiles(haystack, "*", SearchOption.AllDirectories);
 					foreach (string file in files) {
 						try {
-							SetControlPropertyValue(current, "Text", Directory.GetParent(file).FullName.Replace(haystack, "").TrimStart('\\'));
+                            current.InvokeEx(label => label.Text = Directory.GetParent(file).FullName.Replace(haystack, "").TrimStart('\\'));
 							continueVar = false;
 
 							string file2;
@@ -80,9 +66,8 @@ namespace advancedSearching {
 							}
 
 							if (file2.Contains(needle)) {
-								//MessageBox.Show("adding " + file + " due to 1");
-								Form1.addItem(file.Replace(haystack, "").TrimStart('\\'));
-							}
+                                addItem(file);
+                            }
 							else if (searchHaystack && fileSearch.Match(file2).Success) {
 								StreamReader sr = File.OpenText(file);
 								string st = sr.ReadToEnd();
@@ -90,24 +75,16 @@ namespace advancedSearching {
 									st = st.ToLower();
 								}
 
-								if (regex && FitsMask(st, needle)) {
-									Form1.addItem(file.Replace(haystack, "").TrimStart('\\'));
-								}
-								else if (st.IndexOf(needle) > -1) {
-									Form1.addItem(file.Replace(haystack, "").TrimStart('\\'));
-								}
+                                if (regex && FitsMask(st, needle) || st.IndexOf(needle) > -1) {
+                                    addItem(file);
+                                }
 								else {
 									continueVar = true;
 								}
-								// MessageBox.Show("adding " + file + " due to 2");
-								// output.Items.Add(file);
-								// todo add search within file
 							}
 							if (continueVar && regex) {
-								//MessageBox.Show("file2: " + file2 + " needle: " + needle.Replace(".", "[.]").Replace("*", ".*").Replace("?", "."));
 								if (FitsMask(file2, needle)) {
-									//MessageBox.Show("adding " + file + " due to 3");
-									Form1.addItem(file.Replace(haystack, "").TrimStart('\\'));
+                                    addItem(file);
 								}
 							}
 						}
@@ -119,11 +96,15 @@ namespace advancedSearching {
 				catch (Exception e) {
 					MessageBox.Show(e.StackTrace.ToString());
 				}
-				SetControlPropertyValue(current, "Text", "done.");
-			}
+                current.InvokeEx(label => label.Text = "done.");
+            }
 			else {
 				MessageBox.Show(haystack + " doesn't exist!");
 			}
 		}
+        public void addItem(string o) {
+            FileInfo f = new FileInfo(o);
+            inst.addItem(o.Replace(haystack, "").TrimStart('\\'), f.Length, f.LastWriteTime);
+        }
 	}
 }
